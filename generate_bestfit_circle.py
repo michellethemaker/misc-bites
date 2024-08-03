@@ -15,16 +15,16 @@ points = np.array([
     (-0.7371, -0.6071),
     (0.0, -1.0),
     (0.6071, -0.7271)
-])
+    ])
 
 
-# dist from centre of any pt
+# calc geometric dist of any pt from centre
 # input: x-y coord of centre
 def calc_R(xc, yc):
     return np.sqrt((points[:, 0] - xc) ** 2 + (points[:, 1] - yc) ** 2)
 
 
-# calculates residuals, i.e. how much R distance deviate from mean distance
+# calculates residuals, i.e. how much R distance deviate from mean distance of all pts. result shld be as close to zero as possible.
 # input: tuple of centre coords
 # output: array of deviations from centre. ideal case: all = 0
 def f_2(c):
