@@ -55,16 +55,20 @@ def checkFileExists(filename):
             sys.exit(f'ERROR: sorry, {filename} doesnt exist')
 
 def main():
-    partialfilename = input('enter partial filename to start pdf name search: ')
-    listPDF(partialfilename)
-    input_pdf = checkFileExists(input('Name of pdf: '))
-    output_pdf = f"updated_{input_pdf}"
-    author_name = input('Enter author name: ')
-    if not author_name:
-        sys.exit(f'ERROR: Where the name at?')
-       
-    addAuthorToPDF(input_pdf, output_pdf, author_name)
-
+    nextpdf = True
+    while nextpdf:
+        partialfilename = input('enter partial filename to start pdf name search: ')
+        listPDF(partialfilename)
+        input_pdf = checkFileExists(input('Name of pdf: '))
+        output_pdf = f"updated_{input_pdf}"
+        author_name = input('Enter author name: ')
+        if not author_name:
+            sys.exit(f'ERROR: Where the name at?')
+        
+        nextpdfprompt = input('Anymore PDFs? Enter y to keep going, any other key to exit: ')
+        if nextpdfprompt != 'y':
+            print(f'Thank you for using addPDFToAuthor. Exiting now...')
+            nextpdf = False
 
 # Run main function
 if __name__ == "__main__":
