@@ -33,3 +33,18 @@ As described. Based on 10 points, generate the best fit line. Displays results i
 ```python
 python generate_bestfit_polynomial_line.py
 ```
+## pdfextractor
+Parses through all PDFs for specific texts, saving them in a .csv file called output.csv. This file will be found in the same directory as the script itself.
+
+**Requirements:** 
+
+* Python >= 3.9.0
+* Install pymupdf:
+```
+pip install pymupdf
+```
+* Script must be in the folder containing the folder containing the PDFs. 
+
+```python
+python pdfextractor.pdf
+```
