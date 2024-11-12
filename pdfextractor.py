@@ -8,14 +8,13 @@
 #                    =====> pdfFolder
 #                       =====> abc.pdf
 #                       =====> def.pdf
-# Run script in command line(make sure you're in the directory containing the script) with: python pdfextractor.pdf
+# Run script in command line(make sure you're in the directory containing the script) with: python pdfextractor.py
 # Author: michellethemaker
 #======================================================================================================================
 
 import os
 import sys
 from glob import glob
-from os import path
 import fitz
 import csv
 
