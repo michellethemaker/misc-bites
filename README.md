@@ -49,7 +49,11 @@ pip install pymupdf
 python pdfextractor.py
 ```
 ## soundcontrol
-Windows 10 macro. Honestly I think only I would use this. It's a macro to change specific apps' audio source btwn headphones or speakers. Friggin Realtek drivers broke again I think, so when I switch specific apps to headphones and restart my desktop, most apps won't register this change and insist to play from the speakers, and I'll have to go to Windows' Sound Settings, switch the option to speakers, and back to headphones. I'm sick of fixing my stupid audio drivers so instead I made this dumb macro. Honestly it's just an excuse to play more with pyautogui after working with it for my mouseglove2.0. There's a lot of code that could be optimised and cleaned up but since it's just for me and it works I refuse to spend more time on this.
+Windows 10 macro. Honestly I think only I would use this. It's a macro to change specific apps' audio source btwn headphones or speakers. Friggin Realtek drivers broke again I think, so when I switch specific apps to headphones and restart my desktop, most apps won't register this change and insist to play from the speakers, and I'll have to go to Windows' Sound Settings, switch the option to speakers, and back to headphones. I'm sick of fixing my stupid audio drivers so instead I made this dumb macro. Honestly it's just an excuse to play more with pyautogui after working with it for my mouseglove2.0. There's a lot of code that could be optimised and cleaned up but since it's just for me and it works I refuse to spend more time on this. 
+
+Tip 1: I created a bat file per major app+speaker/headphone combo for my desktop, so I just need to click on the right one to activate the right macro.
+
+Tip 2: If you want you can make custom .ico for them, just right click the bat file-> Send to desktop, then change the .ico of the shortcut created.
 
 **Requirements:** 
 
@@ -60,7 +64,7 @@ Windows 10 macro. Honestly I think only I would use this. It's a macro to change
 ![symbol_sound_headphones](https://github.com/user-attachments/assets/804690df-d7f7-4349-b232-1653f46296ad)
 * Captured images of the icons of the apps you want options for. Capture with height that's as high as symbol_sound_headphones.png^, so pyautogui knows where to look for that option. Try to capture one white version and one grey version. Save the second one with '2' appended. Sample of 'symbol_sound_spotify.PNG' as follows. The grey one would be saved as 'symbol_sound_spotify2.PNG':
 
-  ![symbol_sound_spotify](https://github.com/user-attachments/assets/a65dab23-cb93-4bde-ac6d-fb05b14040e4)
+![symbol_sound_spotify](https://github.com/user-attachments/assets/a65dab23-cb93-4bde-ac6d-fb05b14040e4)
 
 <ins> To simply open the sound settings window:</ins>
 ```python
