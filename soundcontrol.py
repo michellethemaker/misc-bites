@@ -1,6 +1,6 @@
 import psutil
 import pyautogui
-from win32gui import FindWindow, GetWindowText # install w pip install pywin32
+# from win32gui import FindWindow, GetWindowText # install w pip install pywin32
 import time
 import argparse
 
@@ -26,13 +26,10 @@ def change_to_headphones(appname, appimg, appimg2): # note that impt_apps_img he
     running_apps = [proc.info['name'].lower() for proc in psutil.process_iter(['name'])]
     speaker_img = 'symbol_sound_speakers.png'
     headphones_img = 'symbol_sound_headphones.png'
-    default_img = 'symbol_sound_default.png'
-    default2_img = 'symbol_sound_default2.png'
     impt_apps = [appname, appname]
     impt_apps_img = [appimg, appimg2]
     im1 = pyautogui.screenshot('img.PNG')
     icon_left, icon_top = 0,0
-    default_left, default_top = 0,0
     for app, app_img in zip(impt_apps, impt_apps_img):
         if app in running_apps:
             print(f'{app.capitalize()} is running. Switching to headphones...')
@@ -130,7 +127,10 @@ parser.add_argument('--source', type=str, help='source type')
 
 args = parser.parse_args()
 
-if args.program == 'soundsettings':
+if args.program == 'listapps':
+    list_running_processes()
+
+elif args.program == 'soundsettings':
     open_soundsettings_auto()
 
 elif args.program == 'changesoundsource':
