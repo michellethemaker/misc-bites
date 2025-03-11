@@ -26,6 +26,8 @@ def change_to_headphones(appname, appimg, appimg2): # note that impt_apps_img he
     running_apps = [proc.info['name'].lower() for proc in psutil.process_iter(['name'])]
     speaker_img = 'symbol_sound_speakers.png'
     headphones_img = 'symbol_sound_headphones.png'
+    default_img = 'symbol_sound_default.png'
+    input_img = 'symbol_sound_input.png'
     impt_apps = [appname, appname]
     impt_apps_img = [appimg, appimg2]
     im1 = pyautogui.screenshot('img.PNG')
@@ -35,6 +37,9 @@ def change_to_headphones(appname, appimg, appimg2): # note that impt_apps_img he
             print(f'{app.capitalize()} is running. Switching to headphones...')
             try:
                 icon_loc = pyautogui.locateOnScreen(app_img, region=(0, 0, im1.width, im1.height), confidence=0.95) # region=(startXValue,startYValue,width,height)
+                print("found app's icon")
+                input_loc = pyautogui.locateOnScreen(input_img, region=(0, 0, im1.width, im1.height),confidence=0.95) # detect mic section
+                print(f'input found, now locating default text, {input_loc.width}, {input_loc.left}')
                 if icon_loc:
                     icon_left = icon_loc.left
                     icon_top = icon_loc.top
@@ -46,34 +51,45 @@ def change_to_headphones(appname, appimg, appimg2): # note that impt_apps_img he
             except:
                 continue
     try:
-        print("try to find speaker")
-        x, y = pyautogui.locateCenterOnScreen(speaker_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-        pyautogui.hotkey('up')
-        pyautogui.hotkey('enter') # is now headphones
+        print("checking for default to change to headphones")
         
-    except:
-        print("cannot find speaker, try to find headphones")
-        # curr_selected_loc = pyautogui.locateOnScreen(headphones_img, region=(0, 0, im1.width, im1.height), confidence=0.95)
-        x, y = pyautogui.locateCenterOnScreen(headphones_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
-        # print(f'LOCATED: {pyautogui.locateCenterOnScreen(app_img, region=(0, 0, speaker_img.width, speaker_img.height), confidence=0.7)}, centre: {x},{y}')
+        x, y = pyautogui.locateCenterOnScreen(default_img, region=(icon_left, icon_top, input_loc.left, icon_loc.height), confidence=0.7) # filter to avoid mic section
         pyautogui.moveTo(x, y)
         pyautogui.click()
         pyautogui.hotkey('down')
-        pyautogui.hotkey('enter') # is now speaker
-        time.sleep(0.5)
-        x, y = pyautogui.locateCenterOnScreen(speaker_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-        pyautogui.hotkey('up')
         pyautogui.hotkey('enter') # is now headphones
+    except:
+        try:
+            print("try to find speaker")
+            x, y = pyautogui.locateCenterOnScreen(speaker_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+            pyautogui.moveTo(x, y)
+            pyautogui.click()
+            pyautogui.hotkey('up')
+            pyautogui.hotkey('enter') # is now headphones
+            
+        except:
+            print("cannot find speaker, try to find headphones")
+            # curr_selected_loc = pyautogui.locateOnScreen(headphones_img, region=(0, 0, im1.width, im1.height), confidence=0.95)
+            x, y = pyautogui.locateCenterOnScreen(headphones_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+            # print(f'LOCATED: {pyautogui.locateCenterOnScreen(app_img, region=(0, 0, speaker_img.width, speaker_img.height), confidence=0.7)}, centre: {x},{y}')
+            pyautogui.moveTo(x, y)
+            pyautogui.click()
+            pyautogui.hotkey('down')
+            pyautogui.hotkey('enter') # is now speaker
+            time.sleep(0.5)
+            x, y = pyautogui.locateCenterOnScreen(speaker_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+            pyautogui.moveTo(x, y)
+            pyautogui.click()
+            pyautogui.hotkey('up')
+            pyautogui.hotkey('enter') # is now headphones
 
 
 def change_to_speaker(appname, appimg, appimg2): # note that impt_apps_img height must be slightly taller than speaker/headphones img so locateCenterOnScreen can find it within the region specified.
     running_apps = [proc.info['name'].lower() for proc in psutil.process_iter(['name'])]
     speaker_img = 'symbol_sound_speakers.png'
     headphones_img = 'symbol_sound_headphones.png'
+    default_img = 'symbol_sound_default.png'
+    input_img = 'symbol_sound_input.png'
     impt_apps = [appname, appname]
     impt_apps_img = [appimg, appimg2]
     im1 = pyautogui.screenshot('img.PNG')
@@ -83,6 +99,7 @@ def change_to_speaker(appname, appimg, appimg2): # note that impt_apps_img heigh
             print(f'{app.capitalize()} is running. Switching to headphones...')
             try:
                 icon_loc = pyautogui.locateOnScreen(app_img, region=(0, 0, im1.width, im1.height), confidence=0.95) # region=(startXValue,startYValue,width,height)
+                input_loc = pyautogui.locateOnScreen(input_img, region=(0, 0, im1.width, im1.height),confidence=0.95) # detect mic section
                 if icon_loc:
                     icon_left = icon_loc.left
                     icon_top = icon_loc.top
@@ -94,35 +111,44 @@ def change_to_speaker(appname, appimg, appimg2): # note that impt_apps_img heigh
             except:
                 continue
     try:
-        print("try to find speaker")
-        x, y = pyautogui.locateCenterOnScreen(speaker_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+        print("checking for default to change to speaker")
+        x, y = pyautogui.locateCenterOnScreen(default_img, region=(icon_left, icon_top, input_loc.left, icon_loc.height), confidence=0.7) # filter to avoid mic section
+        
         pyautogui.moveTo(x, y)
         pyautogui.click()
-        pyautogui.hotkey('up')
+        pyautogui.hotkey('down')
+        pyautogui.hotkey('down')
         pyautogui.hotkey('enter') # is now headphones
-        time.sleep(2)
-        x, y = pyautogui.locateCenterOnScreen(headphones_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-        pyautogui.hotkey('down')
-        pyautogui.hotkey('enter') # is now speaker
-
     except:
-        print("cannot find speaker, try to find headphones")
-        # curr_selected_loc = pyautogui.locateOnScreen(headphones_img, region=(0, 0, im1.width, im1.height), confidence=0.95)
-        x, y = pyautogui.locateCenterOnScreen(headphones_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
-        # print(f'LOCATED: {pyautogui.locateCenterOnScreen(app_img, region=(0, 0, speaker_img.width, speaker_img.height), confidence=0.7)}, centre: {x},{y}')
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-        pyautogui.hotkey('down')
-        pyautogui.hotkey('enter') # is now speaker
+        try:
+            print("try to find speaker")
+            x, y = pyautogui.locateCenterOnScreen(speaker_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+            pyautogui.moveTo(x, y)
+            pyautogui.click()
+            pyautogui.hotkey('up')
+            pyautogui.hotkey('enter') # is now headphones
+            time.sleep(2)
+            x, y = pyautogui.locateCenterOnScreen(headphones_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+            pyautogui.moveTo(x, y)
+            pyautogui.click()
+            pyautogui.hotkey('down')
+            pyautogui.hotkey('enter') # is now speaker
+
+        except:
+            print("cannot find speaker, try to find headphones")
+            # curr_selected_loc = pyautogui.locateOnScreen(headphones_img, region=(0, 0, im1.width, im1.height), confidence=0.95)
+            x, y = pyautogui.locateCenterOnScreen(headphones_img, region=(icon_left, icon_top, im1.width, icon_loc.height), confidence=0.7)
+            # print(f'LOCATED: {pyautogui.locateCenterOnScreen(app_img, region=(0, 0, speaker_img.width, speaker_img.height), confidence=0.7)}, centre: {x},{y}')
+            pyautogui.moveTo(x, y)
+            pyautogui.click()
+            pyautogui.hotkey('down')
+            pyautogui.hotkey('enter') # is now speaker
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--program', type=str, help='run what?') # soundsettings, changesoundsource 
 parser.add_argument('--app', type=str, help='app name')
 parser.add_argument('--source', type=str, help='source type')
-# parser.add_argument('--source', type=int, nargs='+', help='List of numbers')
 
 
 args = parser.parse_args()
