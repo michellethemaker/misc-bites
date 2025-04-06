@@ -78,3 +78,16 @@ python soundcontrol.py --program listapps
 ```python
 python soundcontrol.py --program changesoundsource --app spotify --source speakers
 ```
+
+## tele_msgs.py
+Send messages/images using telegram bot.
+
+**Requirements:** 
+
+* Generate a bot in telegram using @BotFather
+* Install dotenv(conda), python-telegram-bot(pip) in conda environment
+
+```python
+python tele_msgs.py
+```
+Note: save your telegram bot token and chat id in an .env file in same folder as this script. The former is derived when u created the bot using BotFather. The latter is derived using obtainChatID() in the script.
